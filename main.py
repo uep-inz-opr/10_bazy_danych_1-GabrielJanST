@@ -7,17 +7,15 @@ if __name__ == "__main__":
                   to_subscriber data_type INTEGER, 
                   datetime data_type timestamp, 
                   duration data_type INTEGER , 
-                  celltower data_type INTEGER);''') # use your column names here
+                  celltower data_type INTEGER);''')
 
-#Otwieramy plik.csv i przerzucamy go w najprostszy sposób do naszej nowo utworzonej bazy sqlite
 with open('polaczenia_duze.csv','r') as fin: 
-    # csv.DictReader uses first line in file for column headings by default
-    reader = csv.reader(fin, delimiter = ";") # comma is default delimiter
-    next(reader, None)  # skip the headers
+    reader = csv.reader(fin, delimiter = ";")
+    next(reader, None)
     rows = [x for x in reader]
     cur.executemany("INSERT INTO polaczenia (from_subscriber, to_subscriber, datetime, duration , celltower) VALUES (?, ?, ?, ?, ?);", rows)
     sqlite_con.commit()
-#To samo co ostatnio, usunieta funkcja mogrify
+
 class ReportGenerator:
   def __init__(self,connection, escape_string = "(%s)"):
     self.connection = connection
@@ -33,8 +31,12 @@ class ReportGenerator:
     self.report_text = f"Łączny czas trwania dla użytkownika {user_id} to {result}"
 
   def get_report(self):	
-    return self.report_text
+    return self.result
+
+suma = 0
+
 rg = ReportGenerator(sqlite_con, escape_string="?")
 rg.generate_report(283)
 rg.get_report()
-if __name__ == "__main__":
+
+print(int(suma))

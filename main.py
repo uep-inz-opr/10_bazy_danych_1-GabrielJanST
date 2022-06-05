@@ -35,10 +35,10 @@ class ReportGenerator:
 
 suma = 0
 
-for i in range():
+for i in range(400):
     rg = ReportGenerator(sqlite_con, escape_string="?")
     rg.generate_report(i)
-    polaczenie = rg.get_report()
+    polaczenie = rg.get_report(i)
     if polaczenie is not None:
         suma = polaczenie + polaczenie
 

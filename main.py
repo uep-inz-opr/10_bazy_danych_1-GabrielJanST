@@ -38,7 +38,7 @@ suma = 0
 for i in range(400):
     rg = ReportGenerator(sqlite_con, escape_string="?")
     rg.generate_report(i)
-    polaczenie = rg.get_report(i)
+    polaczenie = rg.get_report()
     if polaczenie is not None:
         suma = polaczenie + polaczenie
 
